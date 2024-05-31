@@ -24,9 +24,9 @@ public class AppUserRepositoryTest {
 
     @Transactional
     @Test
-    public void testSaveAndFindAppUserByUserName() {
+    public void testSaveAndFindAppUserByUserName(String username) {
         //1. Arrange
-        Details userDetails = new Details("Test Testsson, test@test.se",LocalDate.now());
+        Details userDetails = new Details("Test Testsson, test@test.se", "test@test.se", LocalDate.now());
         AppUser appUser = new AppUser("testuser", "IaMATestUser");
 
         //2.Act
@@ -45,7 +45,7 @@ public class AppUserRepositoryTest {
     public void testFindUserByRegDateBetween() {
 
         //1.Arrange
-        Details userDetails = new Details("Test Testson, test@test.se",LocalDate.now());
+        Details userDetails = new Details("Test Testson, test@test.se", "test@test.se", LocalDate.now());
         AppUser appUser = new AppUser("testuser", "IaMATestUser");
         AppUser appUserTwo = new AppUser("testusertwo", "IaMATestUserTwo");
 
@@ -64,7 +64,7 @@ public class AppUserRepositoryTest {
     public void testFindAppUserByUserDetails_Id() {
 
         //1. Arrange
-        Details userDetails = new Details("Test Testsson, test@test.se", LocalDate.now());
+        Details userDetails = new Details("Test Testsson, test@test.se", "test@test.se", LocalDate.now());
         AppUser appUser = new AppUser("testuser", "IaMATestUser");
         appUser.setUserDetails(userDetails);
 
@@ -83,7 +83,7 @@ public class AppUserRepositoryTest {
     public void testFindAppUserByUserEmail() {
 
         //1. Arrange
-        Details userDetails = new Details("Test Testsson, test@test.se", LocalDate.now());
+        Details userDetails = new Details("Test Testsson, test@test.se", "test@test.se", LocalDate.now());
         AppUser appUser = new AppUser("testuser", "IaMATestUser");
         appUser.setUserDetails(userDetails);
 
@@ -95,4 +95,51 @@ public class AppUserRepositoryTest {
         //3. Assert
         Assertions.assertEquals(appUser, appUserRepository.findAppUserByUserDetails_EmailIgnoreCase(userEmail));
     }
+    
+    @Transactional
+    @Test
+
+            public void testUpdateUserAppUser(){
+
+        //1. Arrange
+        Details userDetails = new Details ("Test Testsson", "test@test.se", LocalDate.now());
+        AppUser appUser = new AppUser("testuser", "IaMATestUser");
+        appUser.setUserDetails(userDetails);
+        appUserRepository.save(appUser);
+
+        // 2. Act
+        appUser.setUsername("updateduser");
+        appUserRepository.save(appUser);
+
+        //3. Assert
+        Optional<AppUser> updatedUser = testSaveAndFindAppUserByUserName("updateduser");
+        Assertions.assertTrue(updatedUser.isPresent());
+        Assertions.assertEquals("updateduser", updatedUser.get().getUsername());
+
+
+    }
+    @Transactional
+    @Test
+    public void testDeleteAppUser(){
+
+        //1. Arrange
+        Details userDetails = new Details("Test Testsson", "test@test.se", LocalDate.now());
+        AppUser appUser = new AppUser("testuser", "IaMATestUser");
+        appUser.setUserDetails(userDetails);
+        appUserRepository.save(appUser);
+        int userId = appUser.getId();
+
+        //2 Act
+
+        appUserRepository.deleteById(userId);
+
+        //3. Assert
+
+        Optional<AppUser> deletedUser = appUserRepository.findById(userId);
+        Assertions.assertFalse(deletedUser.isPresent());
+    }
+
+
+    
+
 }

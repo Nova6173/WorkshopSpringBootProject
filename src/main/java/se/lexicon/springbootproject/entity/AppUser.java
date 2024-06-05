@@ -57,4 +57,21 @@ public class AppUser {
         bookLoan.setBorrower(this);
         loans.add(bookLoan);
     }
-}
+
+
+
+    public void addBookLoan(Book book) {
+        if (!book.isAvailable()) {
+            throw new IllegalStateException("Book is not available for loan.");
+        }
+
+        BookLoan bookLoan = new BookLoan();
+        bookLoan.setBook(book);
+        bookLoan.setBorrower(this);
+
+        loans.add(bookLoan);
+
+        book.setAvailable(false);
+    }
+
+    }

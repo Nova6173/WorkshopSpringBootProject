@@ -3,6 +3,7 @@ package se.lexicon.springbootproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -61,5 +62,15 @@ public class Book {
           public void removeAuthor(){
         this.author = null;
 
+    }
+
+    private LocalDate dueDate;
+    private boolean available;
+
+    public void calculateDueDate() {
+        dueDate = LocalDate.now().plusDays(maxLoanDays);
+    }
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

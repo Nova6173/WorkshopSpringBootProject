@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -39,5 +40,16 @@ public class Author  {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @OneToMany (mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Book> books;
+
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
+
+    public void removeBook(Book book) {
+        this.books.remove(book);
     }
 }

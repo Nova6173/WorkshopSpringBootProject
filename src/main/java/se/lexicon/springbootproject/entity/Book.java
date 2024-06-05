@@ -49,4 +49,17 @@ public class Book {
         Title = title;
         this.maxLoanDays = maxLoanDays;
     }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    @Setter
+    private Author author;
+
+    public void addAuthor(Author author) {
+        this.author = author;
+    }
+          public void removeAuthor(){
+        this.author = null;
+
+    }
 }

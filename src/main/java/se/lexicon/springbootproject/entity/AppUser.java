@@ -33,6 +33,13 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     private Details userDetails;
 
+    @Setter
+    @ManyToMany
+    @JoinTable(name = "appuser_book",
+            joinColumns = @JoinColumn(name = "appuser_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books;
+
     @OneToMany(mappedBy = "borrower")
     private List<BookLoan> loans;
 
@@ -44,5 +51,10 @@ public class AppUser {
         this.password = password;
         this.regDate = LocalDate.now();
 
+    }
+
+    public void addBookLoan(BookLoan bookLoan) {
+        bookLoan.setBorrower(this);
+        loans.add(bookLoan);
     }
 }

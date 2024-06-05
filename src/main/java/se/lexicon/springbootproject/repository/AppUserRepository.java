@@ -6,6 +6,7 @@ import se.lexicon.springbootproject.entity.AppUser;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser,String> {
@@ -21,5 +22,7 @@ public interface AppUserRepository extends JpaRepository<AppUser,String> {
     AppUser findAppUserByUserDetails_EmailIgnoreCase(String email);
 
 
+    void deleteById(int userId);
 
+    Optional<AppUser> findById(int userId);
 }

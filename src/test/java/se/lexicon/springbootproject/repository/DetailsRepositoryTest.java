@@ -22,7 +22,7 @@ import java.util.Optional;
         public void testFindDetailsByEmail() {
 
             //1. Arrange
-            Details userDetails = new Details("Test Testsson", LocalDate.now());
+            Details userDetails = new Details("Test Testsson", "test@test.se", LocalDate.now());
 
             //2. Act
             Details savedDetails = detailsRepository.save(userDetails);
@@ -37,7 +37,7 @@ import java.util.Optional;
         public void testFindByNameContains() {
 
             //1. Arrange
-            Details userDetails = new Details("Test Testsson", LocalDate.now());
+            Details userDetails = new Details("Test Testsson", "test@test.se", LocalDate.now());
 
             //2. Act
             Details savedDetails = detailsRepository.save(userDetails);
@@ -52,7 +52,7 @@ import java.util.Optional;
         public void testFindByNameIgnoreCase() {
 
             //1. Arrange
-            Details userDetails = new Details("Test Testsson", LocalDate.now());
+            Details userDetails = new Details("Test Testsson", "test@test.se", LocalDate.now());
 
             //2. Act
             Details savedDetails = detailsRepository.save(userDetails);

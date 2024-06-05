@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private int id;
 
     @Column(nullable = false,unique = true)
@@ -27,9 +29,12 @@ public class AppUser {
     @Setter private LocalDate regDate;
 
     @Setter
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "details_id")
     private Details userDetails;
+
+    @OneToMany (mappedBy = "borrower")
+    private List<Book> bookLoans;
 
     public AppUser(String username, String password) {
         this.username = username;

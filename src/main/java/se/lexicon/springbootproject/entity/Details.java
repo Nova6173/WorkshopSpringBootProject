@@ -32,7 +32,7 @@ public class Details {
     @Setter
     private LocalDate birthdate;
 
-    public Details(String name, LocalDate birthdate){
+    public Details(String name, String mail, LocalDate birthdate){
         this.name = name;
         this.email = email;
         this.birthdate = birthdate;

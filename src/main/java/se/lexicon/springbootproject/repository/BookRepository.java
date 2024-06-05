@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
     Book findByTitleContains(String title);
 
     List<Book> findByMaxLoanDaysLessThan(int maxLoanDays);
-    @Query ("select b from Book b join Book Loan l where l.returned = :false")
+    @Query ("select b from Book b join BookLoan l where l.returned = :false")
     List<Book> findByCurrentlyOnLoan(@Param("bookLoanId") int bookLoanId);
 
     @Query ("select b from Book b join BookLoan l where l.returned = :false and l.dueDate between :date1 and :date2")

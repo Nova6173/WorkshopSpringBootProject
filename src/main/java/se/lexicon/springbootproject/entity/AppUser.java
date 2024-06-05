@@ -33,6 +33,9 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     private Details userDetails;
 
+    @OneToMany(mappedBy = "borrower")
+    private List<BookLoan> loans;
+
     @OneToMany (mappedBy = "borrower")
     private List<Book> bookLoans;
 
